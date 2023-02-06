@@ -50,7 +50,7 @@ const App = () => {
         votes = {votes[selected]}
       />
       <button onClick={()=>addVote(selected)}>vote</button>
-      <button onClick={generateRandomAnecdote}>next anecdote</button>
+      <button onClick={() => generateRandomAnecdote()}>next anecdote</button>
       <h1>Anecdote with most votes</h1>
       <Anecdote
         text = {anecdotes[mostVotes]}
