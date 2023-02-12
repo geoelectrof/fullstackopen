@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+import Filter from './Filter'
+import PersonForm from './PersonForm'
+import Persons from './Persons'
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -31,46 +35,26 @@ const App = () => {
     setnewSearch(event.target.value)
   }
 
-  const displayPersons = () => {
-    const regex = new RegExp(newSearch, 'gi')
-    const newArr = persons.filter( person => {
-      return person.name.match(regex)
-    })
-    return newArr
-  }
-
-
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>filter shown with
-        <input 
-          value = {newSearch}
-          onChange={(event) => handleNewSearch(event)}
-        />
-      </div>
+      <Filter 
+        value = {newSearch}
+        handleNewSearch = {handleNewSearch}
+      />
       <h2>add a new</h2>
-      <form onSubmit={(event) => handleSubmit(event)}>
-        <div>name: 
-          <input 
-            value = {newName}
-            onChange={(event) => setNewName(event.target.value)}
-          />
-        </div>
-        <div>number:
-          <input 
-            value = {newNumber}
-            onChange={(event) => setNewNumber(event.target.value)}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+        <PersonForm
+          handleSubmit = {handleSubmit}
+          newName = {newName}
+          setNewName = {setNewName}
+          newNumber = {newNumber}
+          setNewNumber = {setNewNumber}
+        />
       <h2>Numbers</h2>
-      {/* {persons.map(person => <div key={person.name}>{person.name} {person.number}</div>)} */}
-      {displayPersons().map(person => <div key={person.name}>{person.name} {person.number}</div>)}
-      <br />
+      <Persons
+        newSearch = {newSearch}
+        persons = {persons}
+      />
     </div>
   )
 }
