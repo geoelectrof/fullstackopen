@@ -34,14 +34,21 @@ const App = () => {
         name: newName,
         number: newNumber
       }
-      axios
-        .post('http://localhost:3001/persons', newPersonObject)
+      // axios
+      //   .post('http://localhost:3001/persons', newPersonObject)
+      //   .then(response => {
+      //     console.log(response.data)
+      //     setPersons(persons.concat(response.data))
+      //     setNewName("")
+      //     setNewNumber("")
+      //   } )
+      servicePerson
+        .create(newPersonObject)
         .then(response => {
-          console.log(response.data)
-          setPersons(persons.concat(response.data))
+          setPersons(persons.concat(response))
           setNewName("")
           setNewNumber("")
-        } )
+        })
     }
   }
 

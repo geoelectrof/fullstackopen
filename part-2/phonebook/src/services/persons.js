@@ -8,4 +8,8 @@ const getAll = () => {
     // return request.then(response => response.data)
 }
 
-export default { getAll }
+const create = (newPerson) => {
+    return axios.post(baseUrl, newPerson).then(request => request.data)
+}
+
+export default { getAll, create }

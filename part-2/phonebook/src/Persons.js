@@ -20,6 +20,7 @@ const Persons = (props) => {
                     key = {person.name}
                     name = {person.name}
                     number = {person.number}
+                    id = {person.id}
                 />
             )
         })}
