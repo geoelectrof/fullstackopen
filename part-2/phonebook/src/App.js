@@ -27,7 +27,12 @@ const App = () => {
   const handleSubmit = (event) => {
     const personsArr = persons.map(person => person.name)
     if (personsArr.includes(newName)) {
-      alert(`${newName} is already added to phonebook`)
+      // alert(`${newName} is already added to phonebook`)
+      event.preventDefault()
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        // console.log("did not delete")
+        updateNumber(newName)
+      }
     } else {
       event.preventDefault()
       const newPersonObject = {
@@ -66,6 +71,26 @@ const App = () => {
           ))
         })
     }
+  }
+
+  const updateNumber = (name) => {
+    const person = persons.find(p => p.name === name)
+    const changedPerson = {...person, number: newNumber}
+
+    servicePerson
+      .replaceNumber(changedPerson.id, changedPerson)
+      .then(response => {
+        setPersons(persons.map(p => {
+          return (
+            p.id !== changedPerson.id
+            ? p
+            : response
+          )
+        }
+          ))
+        setNewName("")
+        setNewNumber("")       
+      })
   }
 
   return (

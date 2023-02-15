@@ -16,4 +16,8 @@ const deletePerson = (id) => {
     return axios.delete(`${baseUrl}/${id}`).then(request => console.log(request)).catch(error => console.log('fail'))
 }
 
-export default { getAll, create, deletePerson }
+const replaceNumber = (id, newObject) => {
+    return axios.put(`${baseUrl}/${id}`, newObject).then(request => request.data)
+}
+
+export default { getAll, create, deletePerson, replaceNumber }
