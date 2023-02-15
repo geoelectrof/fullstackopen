@@ -5,6 +5,8 @@ import Filter from './Filter'
 import PersonForm from './PersonForm'
 import Persons from './Persons'
 
+import servicePerson from './services/persons'
+
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
@@ -12,11 +14,14 @@ const App = () => {
   const [newSearch, setnewSearch] = useState('')
 
   useEffect(()=> {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
-      })
+    // axios
+    //   .get('http://localhost:3001/persons')
+    //   .then(response => {
+    //     setPersons(response.data)
+    //   })
+    servicePerson
+      .getAll()
+      .then(response => setPersons(response))  
   }, [])
 
   const handleSubmit = (event) => {
