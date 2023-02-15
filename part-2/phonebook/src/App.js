@@ -56,6 +56,16 @@ const App = () => {
     setnewSearch(event.target.value)
   }
 
+  const handleDelete = (id) => {
+    console.log(id)
+    servicePerson
+      .deletePerson(id)
+      .then(response => {
+        setPersons(persons.filter(person => person.id !== id
+        ))
+      })
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -75,6 +85,7 @@ const App = () => {
       <Persons
         newSearch = {newSearch}
         persons = {persons}
+        handleDelete = {handleDelete}
       />
     </div>
   )
