@@ -1,9 +1,12 @@
-import axios from "axios"
+// import axios from "axios"
 import { useState, useEffect } from 'react'
 
 import Filter from './Filter'
 import PersonForm from './PersonForm'
 import Persons from './Persons'
+import Notification from "./Notification"
+
+import './index.css'
 
 import servicePerson from './services/persons'
 
@@ -12,6 +15,8 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newSearch, setnewSearch] = useState('')
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [messageType, setMessageType] = useState(null)
 
   useEffect(()=> {
     // axios
@@ -32,6 +37,13 @@ const App = () => {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
         // console.log("did not delete")
         updateNumber(newName)
+        setSuccessMessage(
+          `${newName}'s number updated to the server`
+        )
+        setMessageType("success")
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 5000)
       }
     } else {
       event.preventDefault()
@@ -54,6 +66,13 @@ const App = () => {
           setNewName("")
           setNewNumber("")
         })
+        setSuccessMessage(
+          `${newName}'s number added to the server`
+        )
+        setMessageType("success")
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 5000)
     }
   }
 
@@ -69,6 +88,16 @@ const App = () => {
         .then(response => {
           setPersons(persons.filter(person => person.id !== id
           ))
+        })
+        .catch(error => {
+          console.log('already deleted')
+          setSuccessMessage(
+            `Information of ${toDelete.name} has already been removed from server`
+          )
+          setMessageType("error")
+          setTimeout(() => {
+            setSuccessMessage(null)
+          }, 5000)
         })
     }
   }
@@ -93,9 +122,15 @@ const App = () => {
       })
   }
 
+  
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification 
+        message={successMessage} 
+        type={messageType}
+      />
       <Filter 
         value = {newSearch}
         handleNewSearch = {handleNewSearch}

@@ -13,7 +13,8 @@ const create = (newPerson) => {
 }
 
 const deletePerson = (id) => {
-    return axios.delete(`${baseUrl}/${id}`).then(request => console.log(request)).catch(error => console.log('fail'))
+    return axios.delete(`${baseUrl}/${id}`).then(request => console.log(request))
+    // return axios.delete(`${baseUrl}/${id}`).then(request => console.log(request)).catch(error => console.log('fail'))
 }
 
 const replaceNumber = (id, newObject) => {
