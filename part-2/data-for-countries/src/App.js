@@ -1,15 +1,24 @@
+import Countries from "./components/Countries";
+import Filter from "./components/Filter";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 const baseUrl = "https://restcountries.com/v3.1/all"
 
+
 function App() {
   const [allCountries, setAllCountries] = useState([])
+  const [newSearch, setNewSearch] = useState("")
+
+  const handleChange = (event) => {
+    setNewSearch(event.target.value)
+  }
 
   useEffect(() => {
     axios
     .get(baseUrl)
     .then(request => {
-      console.log(request.data)
+      // console.log(request.data)
       setAllCountries(request.data)
     })
     .catch(error => console.log(error))
@@ -17,14 +26,15 @@ function App() {
 
 
   return (
-    <div className="App">    
-        {allCountries.map(country => 
-          <div>
-            <h1>{country.name.common}</h1>
-            <h2>{country.region}</h2>
-          </div>          
-        )}
-      
+    <div className="App">   
+      <Filter 
+        newSearch={newSearch}
+        handleChange={handleChange}
+      />
+      <Countries 
+        countries={allCountries}
+        newSearch={newSearch}
+      />
     </div>
   );
 }
