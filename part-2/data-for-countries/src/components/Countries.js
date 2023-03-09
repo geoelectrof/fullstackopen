@@ -39,6 +39,7 @@ const Countries = (props) => {
                 displayCountries().map((country) => 
                     <p key={country.name.common}>
                         {country.name.common}
+                        <button onClick={()=>props.handleClick(country.name.common)}>show</button>
                     </p>
                 )
             }

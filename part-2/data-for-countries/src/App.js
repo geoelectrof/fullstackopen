@@ -10,10 +10,6 @@ function App() {
   const [allCountries, setAllCountries] = useState([])
   const [newSearch, setNewSearch] = useState("")
 
-  const handleChange = (event) => {
-    setNewSearch(event.target.value)
-  }
-
   useEffect(() => {
     axios
     .get(baseUrl)
@@ -23,7 +19,15 @@ function App() {
     })
     .catch(error => console.log(error))
   }, [])
+  
+  const handleChange = (event) => {
+    setNewSearch(event.target.value)
+  }
 
+  const showCountry = (name) => {
+    console.log(name)
+    setNewSearch(name)
+  }
 
   return (
     <div className="App">   
@@ -34,6 +38,7 @@ function App() {
       <Countries 
         countries={allCountries}
         newSearch={newSearch}
+        handleClick={showCountry}
       />
     </div>
   );
