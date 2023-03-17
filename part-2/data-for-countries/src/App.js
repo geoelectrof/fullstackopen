@@ -25,7 +25,7 @@ function App() {
   }
 
   const showCountry = (name) => {
-    console.log(name)
+    // console.log(name)
     setNewSearch(name)
   }
 

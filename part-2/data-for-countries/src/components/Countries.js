@@ -11,13 +11,13 @@ const Countries = (props) => {
         return newArr
     }
     
-    console.log('displayCountrie().length', displayCountries().length)
+    // console.log('displayCountrie().length', displayCountries().length)
 
     if (displayCountries().length > 9) {
         return (
             <div>Too many matches, specify another filter</div>
         )
-    } else if (displayCountries().length == 1) {
+    } else if (displayCountries().length === 1) {
 
         return(
             <div>
